@@ -1,5 +1,6 @@
 package com.uc.chalk.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.animation.OvershootInterpolator
 import androidx.activity.ComponentActivity
@@ -8,8 +9,10 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -23,6 +26,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -51,17 +55,15 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-//@Composable
-//fun MyContent(){
-//
-//    // Fetching the Local Context
-//    val mContext = LocalContext.current
-//
-//    val intent = Intent(mContext,LoginActivity::class.java)
-//    mContext.startActivity(intent)
-//
-//
-//}
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview2() {
+    ChalkTheme {
+        Navigation()
+    }
+}
+
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
@@ -75,6 +77,7 @@ fun Navigation() {
         composable("main_screen") {
             Box(modifier = Modifier
                 .fillMaxSize()
+                .verticalScroll(state = rememberScrollState(), true, null, false)
                 .background(Color(0xFFEBF1FF))
                 .padding(32.dp)) {
                 Column() {
@@ -133,24 +136,42 @@ fun Navigation() {
 
                     )
                     val mContext = LocalContext.current
-                    Button( onClick = {
-
+                    Button( modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp, 16.dp),
+                        onClick = {
+                            val intent = Intent(mContext, RegisterActivity::class. java)
+//                            intent.putExtra( name: "kelas", value: 8)
+                            mContext?.startActivity(intent)
                     }) {
                         Text(text = "Log In")
 
                     }
-                    Text(
-                        text = "Don’t Have An Account? Register",
-                        fontFamily = FontFamily.SansSerif,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black,
-                        fontSize = 24.sp,
-                        modifier = Modifier.padding(16.dp,16.dp)
-                    )
+                    Row (
+                        modifier = Modifier.padding(16.dp)
+                            ){
+                        Text(
+                            text = "Don’t Have An Account?",
+                            fontFamily = FontFamily.SansSerif,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Black,
+                            fontSize = 12.sp,
+
+                        )
+                        Text(text = "Register",
+                            fontFamily = FontFamily.SansSerif,
+                            fontWeight = FontWeight.Bold,
+                            color = Blue1,
+                            fontSize = 12.sp,
+                        )
+                    }
+
                 }
 
             }
         }
+
+
     }
 }
 @Composable
@@ -186,3 +207,4 @@ fun SplashScreen(navController: NavController) {
             modifier = Modifier.scale(scale.value))
     }
 }
+
