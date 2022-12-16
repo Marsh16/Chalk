@@ -1,4 +1,4 @@
-package com.uc.chalk.view.theme
+package com.uc.chalk.view.theme.ui
 
 import android.app.Activity
 import android.os.Build
@@ -16,15 +16,15 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = Blue40,
+    secondary = Black70,
+    tertiary = Blue15
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = Blue50,
+    secondary = Black80,
+    tertiary = Blue20
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
