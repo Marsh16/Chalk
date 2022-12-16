@@ -7,6 +7,6 @@ class MainRepository @Inject constructor(private val api: EndPointApi){
 
 
 
-    suspend fun getMahasiswaResults() = api.getMahasiswa()
+    suspend fun getUsers() = api.getUsers()
 
 }
