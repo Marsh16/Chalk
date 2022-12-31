@@ -30,15 +30,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.uc.chalk.R
-import com.uc.chalk.view.theme.*
+import com.uc.chalk.view.auth.RegisterActivity
+import com.uc.chalk.view.theme.ui.Blue10
+import com.uc.chalk.view.theme.ui.ChalkTheme
+import com.uc.chalk.view.theme.ui.firaSans
 import kotlinx.coroutines.delay
 
 
 class MainActivity : ComponentActivity() {
+
+    lateinit var navController: NavHostController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -56,11 +63,13 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview2() {
     ChalkTheme {
-        Navigation()
+//        Navigation()
+        MainScreen()
     }
 }
 
@@ -80,10 +89,10 @@ fun Navigation() {
                 .verticalScroll(state = rememberScrollState(), true, null, false)
                 .background(Color(0xFFEBF1FF))
                 .padding(32.dp)) {
-                Column() {
+                Column {
                     Text(
                         text = "Chalk",
-                        fontFamily = FontFamily.SansSerif,
+                        fontFamily = firaSans,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black,
                         fontSize = 24.sp,
@@ -104,8 +113,8 @@ fun Navigation() {
                         onValueChange = { text = it },decorationBox = { innerTextField ->
                             Row(
                                 Modifier
-                                    .background(Color.LightGray, RoundedCornerShape(percent = 10))
-                                    .padding(16.dp, 16.dp)
+                                    .background(Color.LightGray, RoundedCornerShape(4.dp))
+                                    .padding(16.dp)
                                     .fillMaxWidth()
                             ) {
 
@@ -136,17 +145,23 @@ fun Navigation() {
 
                     )
                     val mContext = LocalContext.current
-                    Button( modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp, 16.dp),
-                        onClick = {
-                            val intent = Intent(mContext, RegisterActivity::class. java)
+                    Column(
+                        modifier = Modifier
+                        .padding(0.dp, 16.dp),
+                        verticalArrangement = Arrangement.Bottom
+                    ) {
+                        Button( modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp, 16.dp),
+                            onClick = {
+                                val intent = Intent(mContext, RegisterActivity::class. java)
 //                            intent.putExtra( name: "kelas", value: 8)
-                            mContext?.startActivity(intent)
-                    }) {
-                        Text(text = "Log In")
-
+                                mContext.startActivity(intent)
+                            }) {
+                            Text(text = "Log In")
+                        }
                     }
+
                     Row (
                         modifier = Modifier.padding(16.dp)
                             ){
@@ -161,7 +176,7 @@ fun Navigation() {
                         Text(text = "Register",
                             fontFamily = FontFamily.SansSerif,
                             fontWeight = FontWeight.Bold,
-                            color = Blue1,
+                            color = Blue10,
                             fontSize = 12.sp,
                         )
                     }
@@ -200,7 +215,7 @@ fun SplashScreen(navController: NavController) {
     Box(contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxSize()
-            .background(Blue1)) {
+            .background(Blue10)) {
         // Change the logo
         Image(painter = painterResource(id = R.drawable.chalklogo),
             contentDescription = "Logo",
