@@ -1,6 +1,7 @@
 package com.uc.chalk.view.auth
 
 //import com.uc.chalk.view.theme.ChalkTheme
+//import com.uc.chalk.helper.MaskVisualTransformation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,22 +10,25 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.uc.chalk.helper.Const
+import com.uc.chalk.helper.DATE_LENGTH
 import com.uc.chalk.model.User
 import com.uc.chalk.retrofit.EndPointApi
 import com.uc.chalk.view.theme.ui.ChalkTheme
@@ -59,13 +63,14 @@ class RegisterActivity  : ComponentActivity()  {
         }
     }
 }
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun a() {
         Box(modifier = Modifier
             .fillMaxSize()
             .verticalScroll(state = rememberScrollState(), true, null, false)
             .background(MaterialTheme.colorScheme.background)
-            .padding(24.dp)) {
+            .padding(32.dp)) {
             Column {
                 Text(
                     text = "Chalk",
@@ -82,202 +87,259 @@ fun a() {
                     color = MaterialTheme.colorScheme.onBackground,
                     fontSize = MaterialTheme.typography.headlineLarge.fontSize,
                     modifier = Modifier.padding(0.dp,16.dp))
-                var name by remember { mutableStateOf("") }
-                var username by remember { mutableStateOf("") }
+                var name by rememberSaveable { mutableStateOf("") }
+                var username by rememberSaveable { mutableStateOf("") }
                 var email by remember { mutableStateOf("") }
-                var phone_number by remember { mutableStateOf("") }
-                var dateofbirth by remember { mutableStateOf("") }
-                var password by remember { mutableStateOf("") }
-                var cpassword by remember { mutableStateOf("") }
-                val response = remember {
-                    mutableStateOf("")
-                }
+                var phone_number by rememberSaveable { mutableStateOf("") }
+                var dateofbirth by rememberSaveable { mutableStateOf("") }
+                var password by rememberSaveable { mutableStateOf("") }
+                var cpassword by rememberSaveable { mutableStateOf("") }
+                val response = remember { mutableStateOf("") }
+                var passwordVisibility by remember { mutableStateOf(false) }
+                val passIcon = if (passwordVisibility)
+                    painterResource(id = com.google.android.material.R.drawable.design_ic_visibility)
+                else
+                    painterResource(id = com.google.android.material.R.drawable.design_ic_visibility_off)
+                val cancelIcon = painterResource(id = com.google.android.material.R.drawable.mtrl_ic_cancel)
+                val maxChar = 200
+                val minPass = 8
                 Column(modifier = Modifier.padding(0.dp,0.dp,0.dp,8.dp)) {
-                    BasicTextField(
+                    OutlinedTextField(
                         value = name,
-                        modifier = Modifier.padding(0.dp,16.dp),
-                        onValueChange = { name = it },
-                        decorationBox = { innerTextField ->
-                            Row(
-                                Modifier
-                                    .background(MaterialTheme.colorScheme.background)
-                                    .border(
-                                        2.dp,
-                                        MaterialTheme.colorScheme.onBackground,
-                                        RoundedCornerShape(4.dp)
-                                    )
-                                    .padding(16.dp)
-                                    .fillMaxWidth()
-                            ) {
-
-                                if (name.isEmpty()) {
-                                    Text("Your Name")
-                                }
-                                innerTextField()  //<-- Add this
+                        onValueChange = {
+                            if (it.length <= maxChar) {
+                                name = it
                             }
                         },
+                        label = {Text(text = "Name")},
+                        placeholder = { Text(text = "Enter your name")},
+//                        trailingIcon = IconButton(onClick = { name }) {
+//                            Icon(painter = cancelIcon, contentDescription = "Cancel Icon")
+//                        },
+                        singleLine = true,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(0.dp, 16.dp),
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Text,
+                            imeAction = ImeAction.Next
+                        ),
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = MaterialTheme.colorScheme.primary,
+                            focusedLabelColor = MaterialTheme.colorScheme.primary,
+                            cursorColor = MaterialTheme.colorScheme.primary
+                        )
                     )
-                    BasicTextField(
+                    OutlinedTextField(
                         value = username,
-                        modifier = Modifier.padding(0.dp,16.dp),
+                        onValueChange = {
+                            if (it.length <= maxChar) {
+                                username = it
+                            } },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(0.dp, 16.dp),
+                        label = { Text(text = "Username") },
+                        placeholder = { Text(text = "Enter your username") },
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Text,
+                            imeAction = ImeAction.Next
+                        ),
+//                        trailingIcon = IconButton(onClick = { name = "" }) {
+//                            Icon(
+//                                painter = cancelIcon,
+//                                contentDescription = "Cancel Icon"
+//                            )
+//                        },
                         singleLine = true,
-                        onValueChange = { username = it },
-                        decorationBox = { innerTextField ->
-                            Row(
-                                Modifier
-                                    .background(MaterialTheme.colorScheme.background)
-                                    .border(
-                                        2.dp,
-                                        MaterialTheme.colorScheme.onBackground,
-                                        RoundedCornerShape(4.dp)
-                                    )
-                                    .padding(16.dp)
-                                    .fillMaxWidth()
-                            ) {
-
-                                if (username.isEmpty()) {
-                                    Text("Your Username")
-                                }
-                                innerTextField()  //<-- Add this
-                            }
-                        },
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = MaterialTheme.colorScheme.primary,
+                            focusedLabelColor = MaterialTheme.colorScheme.primary,
+                            cursorColor = MaterialTheme.colorScheme.primary
+                        )
                     )
-                    BasicTextField(
+                    OutlinedTextField(
                         value = email,
-                        modifier = Modifier.padding(0.dp,16.dp),
-                        onValueChange = { email = it },
-                        decorationBox = { innerTextField ->
-                            Row(
-                                Modifier
-                                    .background(MaterialTheme.colorScheme.background)
-                                    .border(
-                                        2.dp,
-                                        MaterialTheme.colorScheme.onBackground,
-                                        RoundedCornerShape(4.dp)
-                                    )
-                                    .padding(16.dp)
-                                    .fillMaxWidth()
-                            ) {
-
-                                if (email.isEmpty()) {
-                                    Text("Your Email")
-                                }
-                                innerTextField()  //<-- Add this
+                        onValueChange = {
+                            if (it.length <= maxChar) {
+                                email = it
                             }
                         },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(0.dp, 16.dp),
+                        label = { Text(text = "Email") },
+                        placeholder = { Text(text = "Your Email") },
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Email,
+                            imeAction = ImeAction.Next
+                        ),
+//                        trailingIcon = IconButton(onClick = { name = "" }) {
+//                            Icon(
+//                                imageVector = if (name.isNotEmpty()) Icons.Default.Cancel else Icons.Outlined.Cancel,
+//                                contentDescription = "Cancel Icon"
+//                            )
+//                        },
+                        singleLine = true,
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = MaterialTheme.colorScheme.primary,
+                            focusedLabelColor = MaterialTheme.colorScheme.primary,
+                            cursorColor = MaterialTheme.colorScheme.primary
+                        )
                     )
-                    BasicTextField(
+                    OutlinedTextField(
                         value = phone_number,
-                        modifier = Modifier.padding(0.dp,16.dp),
-                        onValueChange = { phone_number = it },decorationBox = { innerTextField ->
-                            Row(
-                                Modifier
-                                    .background(MaterialTheme.colorScheme.background)
-                                    .border(
-                                        2.dp,
-                                        MaterialTheme.colorScheme.onBackground,
-                                        RoundedCornerShape(4.dp)
-                                    )
-                                    .padding(16.dp)
-                                    .fillMaxWidth()
-                            ) {
-
-                                if (phone_number.isEmpty()) {
-                                    Text("Your Phone Number")
-                                }
-                                innerTextField()  //<-- Add this
-                            }
-                        },
+                        onValueChange = {
+                            if (it.length <= maxChar) {
+                                phone_number = it
+                            } },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(0.dp, 16.dp),
+                        label = { Text(text = "Phone Number") },
+                        placeholder = { Text(text = "Your Phone Number") },
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Phone,
+                            imeAction = ImeAction.Next
+                        ),
+//                        trailingIcon = IconButton(onClick = { name = "" }) {
+//                            Icon(
+//                                imageVector = if (name.isNotEmpty()) Icons.Default.Cancel else Icons.Outlined.Cancel,
+//                                contentDescription = "Cancel Icon"
+//                            )
+//                        },
+                        singleLine = true,
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = MaterialTheme.colorScheme.primary,
+                            focusedLabelColor = MaterialTheme.colorScheme.primary,
+                            cursorColor = MaterialTheme.colorScheme.primary
+                        )
                     )
-                    BasicTextField(
+                    OutlinedTextField(
                         value = dateofbirth,
-                        modifier = Modifier.padding(0.dp,16.dp),
-                        onValueChange = { dateofbirth = it },decorationBox = { innerTextField ->
-                            Row(
-                                Modifier
-                                    .background(MaterialTheme.colorScheme.background)
-                                    .border(
-                                        2.dp,
-                                        MaterialTheme.colorScheme.onBackground,
-                                        RoundedCornerShape(4.dp)
-                                    )
-                                    .padding(16.dp)
-                                    .fillMaxWidth()
-                            ) {
-                                if (dateofbirth.isEmpty()) {
-                                    Text("Your Birthday")
-                                }
-                                innerTextField()  //<-- Add this
+                        onValueChange = {
+                            if (it.length <= DATE_LENGTH) {
+                                dateofbirth = it
                             }
                         },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(0.dp, 16.dp),
+                        label = { Text(text = "Date of Birth") },
+                        placeholder = { Text(text = "Enter your birthday") },
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Number,
+                            imeAction = ImeAction.Next
+                        ),
+                        singleLine = true,
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = MaterialTheme.colorScheme.primary,
+                            focusedLabelColor = MaterialTheme.colorScheme.primary,
+                            cursorColor = MaterialTheme.colorScheme.primary
+                        ),
+//                        visualTransformation = MaskVisualTransformation(DATE_MASK)
                     )
-                    BasicTextField(
+//                    BasicTextField(
+//                        value = dateofbirth,
+//                        modifier = Modifier.padding(0.dp,16.dp),
+//                        onValueChange = { dateofbirth = it },decorationBox = { innerTextField ->
+//                            Row(
+//                                Modifier
+//                                    .background(MaterialTheme.colorScheme.background)
+//                                    .border(
+//                                        2.dp,
+//                                        MaterialTheme.colorScheme.onBackground,
+//                                        RoundedCornerShape(4.dp)
+//                                    )
+//                                    .padding(16.dp)
+//                                    .fillMaxWidth()
+//                            ) {
+//                                if (dateofbirth.isEmpty()) {
+//                                    Text("Your Birthday")
+//                                }
+//                                innerTextField()  //<-- Add this
+//                            }
+//                        },
+//                    )
+                    OutlinedTextField(
                         value = password,
-                        modifier = Modifier.padding(0.dp,16.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(0.dp, 16.dp),
                         singleLine = true,
-                        onValueChange = { password = it },
-                        decorationBox = { innerTextField ->
-                            Row(
-                                Modifier
-                                    .background(MaterialTheme.colorScheme.background)
-                                    .border(
-                                        2.dp,
-                                        MaterialTheme.colorScheme.onBackground,
-                                        RoundedCornerShape(4.dp)
-                                    )
-                                    .padding(16.dp)
-                                    .fillMaxWidth()
-                            ) {
-
-                                if (password.isEmpty()) {
-                                    Text("Password")
-                                }
-                                innerTextField()  //<-- Add this
+                        onValueChange = {
+                            if (it.length >= minPass) {
+                                password = it
                             }
                         },
+                        placeholder = { Text(text = "Enter your password") },
+                        label = { Text(text = "Password")},
+                        trailingIcon = {
+                            IconButton(onClick = {
+                                passwordVisibility = !passwordVisibility
+                            }) {
+                                Icon(
+                                    painter = passIcon,
+                                    contentDescription = "Visibility Icon")
+                            }
+                        },
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Password,
+                            imeAction = ImeAction.Next
+                        ),
+                        visualTransformation = if (passwordVisibility) VisualTransformation.None
+                        else PasswordVisualTransformation()
                     )
-                    BasicTextField(
+                    OutlinedTextField(
                         value = cpassword,
-                        modifier = Modifier.padding(0.dp,16.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(0.dp, 16.dp),
                         singleLine = true,
-                        onValueChange = { cpassword = it },
-                        decorationBox = { innerTextField ->
-                            Row(
-                                Modifier
-                                    .background(MaterialTheme.colorScheme.background)
-                                    .border(
-                                        2.dp,
-                                        MaterialTheme.colorScheme.onBackground,
-                                        RoundedCornerShape(4.dp)
-                                    )
-                                    .padding(16.dp)
-                                    .fillMaxWidth()
-                            ) {
-
-                                if (cpassword.isEmpty()) {
-                                    Text("Confirm Password")
+                        onValueChange = {
+                            if (it.length >= minPass) {
+                                if (it == password) {
+                                    cpassword = it
                                 }
-                                innerTextField()  //<-- Add this
                             }
                         },
+                        placeholder = { Text(text = "Confirm your password") },
+                        label = { Text(text = "Confirm Password")},
+                        trailingIcon = {
+                            IconButton(onClick = {
+                                passwordVisibility = !passwordVisibility
+                            }) {
+                                Icon(
+                                    painter = passIcon,
+                                    contentDescription = "Visibility Icon")
+                            }
+                        },
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Password,
+                            imeAction = ImeAction.Done
+                        ),
+                        visualTransformation = if (passwordVisibility) VisualTransformation.None
+                        else PasswordVisualTransformation()
                     )
                 }
 
                 val mContext = LocalContext.current
                 Button(
                     modifier = Modifier
-                    .padding(0.dp, 16.dp, 0.dp, 8.dp)
-                    .fillMaxWidth(),
+                        .padding(0.dp, 16.dp, 0.dp, 8.dp)
+                        .fillMaxWidth(),
                     onClick = {
                         postDataUsingRetrofit(
-                            mContext,name,username,email,phone_number,dateofbirth,password, response
+                            mContext,name,username,email,phone_number,dateofbirth,password,response
                         )
                         Toast.makeText(mContext, "Form: name is $name and email is $email", Toast.LENGTH_SHORT).show()
                 }) {
                     Text(text = "Register")
                 }
                 Row {
-                    Spacer(modifier = Modifier.weight(1f))
+                    Spacer(modifier = Modifier
+                        .weight(1f)
+                        .padding(0.dp, 0.dp, 0.dp, 16.dp))
                     Text(
                         text = "Already Have An Account? ",
                         fontFamily = FontFamily.SansSerif,
@@ -357,9 +419,4 @@ val user = User(0,name, username, email,phone_number,dateofbirth,"", password)
 
         }
     })
-
-
-
-
 }
-
