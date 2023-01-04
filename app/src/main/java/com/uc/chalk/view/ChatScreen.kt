@@ -73,7 +73,7 @@ fun ChatScreen() {
                     )
                 }
             }
-            tabSection(tabs = listOf("All", "Friends", "Groups"))
+            tabSection(tabs = listOf("All", "Friends", "Groups","Channels"))
 //            ChatCard(profileImage = , username = , chat_text = ) //pakai lazycolumn & cari tahu cara biar bisa ganti tab
         }
     }

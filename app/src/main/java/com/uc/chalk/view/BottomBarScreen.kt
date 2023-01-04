@@ -17,19 +17,19 @@ sealed class BottomBarScreen(
 ){
     object Home: BottomBarScreen(
         route = "home_screen",
-        title = "Home",
+        title = "",
         icon_filled = Icons.Default.Home,
         icon_outlined = Icons.Outlined.Home
     )
     object Chat: BottomBarScreen(
         route = "chat_screen",
-        title = "Chat",
+        title = "",
         icon_filled = Icons.Default.Chat,
         icon_outlined = Icons.Outlined.Chat
     )
     object Contact: BottomBarScreen(
         route = "contact_screen",
-        title = "Contact",
+        title = "",
         icon_filled = Icons.Default.Person,
         icon_outlined = Icons.Outlined.Person
     )
