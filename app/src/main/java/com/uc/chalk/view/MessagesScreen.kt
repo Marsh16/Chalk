@@ -5,22 +5,30 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIos
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.DoneAll
+import androidx.compose.material.icons.filled.Send
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.uc.chalk.view.theme.ui.Black30
 import com.uc.chalk.view.theme.ui.Blue20
 import com.uc.chalk.view.theme.ui.Blue5
 import com.uc.chalk.view.theme.ui.firaSans
@@ -82,20 +90,70 @@ fun ChatMessage(messages: List<String>) {
         {
             Row(horizontalArrangement = if (messages[it] == "user_logged") Arrangement.End
             else Arrangement.Start) {
-                Box(
-                    modifier = Modifier
-                        .widthIn(max = 200.dp)
-                        .background(if (messages[it] == "user_logged") Blue20 else Blue5), //kalau dari user 20, yg lain 5
-                    contentAlignment = Alignment.TopStart,
-                ) {
-                    Text(
-                        text = messages[it],
-                        fontSize = 16.sp,
-                        color = MaterialTheme.colorScheme.onBackground,
-                        fontWeight = FontWeight.Black,
-                        modifier = Modifier.padding(16.dp)
-                    )
-                }
+                theMessage(message = messages[it])
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+        }
+    }
+}
+
+@Composable
+fun theMessage(message: String) {
+    Box(
+        modifier = Modifier
+            .widthIn(max = 200.dp)
+            .background(if (message == "user_logged") Blue20 else Blue5), //kalau dari user 20, yg lain 5
+        contentAlignment = Alignment.TopStart,
+    ) {
+        Column{
+            Text(
+                text = message,
+                fontSize = 16.sp,
+                color = MaterialTheme.colorScheme.onBackground,
+                fontWeight = FontWeight.Medium,
+                modifier = Modifier.padding(16.dp)
+            )
+            Row(horizontalArrangement = Arrangement.End, modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    text = message, //ganti jadi jam
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = Black30
+                )
+                Icon(
+                    imageVector = if (message == "unread") Icons.Default.Done else Icons.Default.DoneAll,
+                    contentDescription = "Check Icon",
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun MessageBox() {
+
+    val textState = remember { mutableStateOf(TextFieldValue()) }
+    val scrollState = rememberScrollState()
+
+    Box(modifier = Modifier.background(Blue5)) {
+        Row(modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth()) {
+            BasicTextField(
+                value = textState.value,
+                modifier = Modifier.weight(1f, true),
+                onValueChange = {
+                    textState.value = it
+                },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Send
+                )
+            )
+            Spacer(modifier = Modifier.size(12.dp))
+
+            FloatingActionButton(onClick = { /*TODO*/ }) {
+                Icon(imageVector = Icons.Default.Send, contentDescription = null)
             }
         }
     }
