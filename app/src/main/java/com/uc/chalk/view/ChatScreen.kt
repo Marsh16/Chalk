@@ -2,6 +2,7 @@ package com.uc.chalk.view
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -23,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.uc.chalk.view.theme.ui.Blue20
 import com.uc.chalk.view.theme.ui.Blue5
 import com.uc.chalk.view.theme.ui.firaSans
 
@@ -75,6 +77,7 @@ fun ChatScreen() {
             }
             tabSection(tabs = listOf("All", "Friends", "Groups"))
 //            ChatCard(profileImage = , username = , chat_text = ) //pakai lazycolumn & cari tahu cara biar bisa ganti tab
+//            ChatMessage(messages = ) //panggil list pesan disini
         }
     }
 }
@@ -157,6 +160,33 @@ fun ChatCard(profileImage: ImageVector, username: String, chat_text: String) {
                 color = MaterialTheme.colorScheme.secondary,
                 overflow = TextOverflow.Ellipsis
             )
+        }
+    }
+}
+
+@Composable
+fun ChatMessage(messages: List<String>) {
+    LazyColumn{
+        Modifier.padding(start = 0.dp, 10.dp)
+        items(messages.size)
+        {
+            Row(horizontalArrangement = if (messages[it] == "user_logged") Arrangement.End
+            else Arrangement.Start) {
+                Box(
+                    modifier = Modifier
+                        .widthIn(max = 200.dp)
+                        .background(if (messages[it] == "user_logged") Blue20 else Blue5), //kalau dari user 20, yg lain 5
+                    contentAlignment = Alignment.TopStart,
+                ) {
+                    Text(
+                        text = messages[it],
+                        fontSize = 16.sp,
+                        color = MaterialTheme.colorScheme.onBackground,
+                        fontWeight = FontWeight.Black,
+                        modifier = Modifier.padding(16.dp)
+                    )
+                }
+            }
         }
     }
 }
