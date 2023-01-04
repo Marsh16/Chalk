@@ -55,6 +55,7 @@ fun AddList(
                         focusedLabelColor = MaterialTheme.colorScheme.primary,
                         cursorColor = MaterialTheme.colorScheme.primary
                     )
+                )
             },
             confirmButton = {
                 TextButton(
