@@ -1,5 +1,6 @@
 package com.uc.chalk.view
 
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -7,8 +8,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddComment
-import androidx.compose.material.icons.filled.PersonAdd
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -20,17 +20,24 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.NavController
+import com.uc.chalk.helper.Const
+import com.uc.chalk.model.User
 import com.uc.chalk.view.theme.ui.firaSans
+import com.uc.chalk.viewmodel.MainViewModel
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(lifecycleOwner: LifecycleOwner,mainViewModel: MainViewModel) {
     lateinit var navController: NavController
     Box(
         modifier = Modifier
@@ -86,7 +93,11 @@ fun HomeScreen() {
                     )
                 }
             }
-//            UserProfile(profileImage = , username = ) //panggil username dan gambar disini
+            mainViewModel.getUser(Const.user_id,Const.token)
+//            mainViewModel.token.observe(lifecycleOwner, Observer { response ->
+
+                UserProfile(Const.username) //panggil username dan gambar disini
+//            })
         }
     }
 }
@@ -94,17 +105,17 @@ fun HomeScreen() {
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+//    HomeScreen()
 }
 
 @Composable
-fun UserProfile(profileImage: ImageVector, username: String) {
+fun UserProfile(username: String) {
     lateinit var navController: NavController
     Row(
         modifier = Modifier.fillMaxWidth()
     ) {
         Image(
-            imageVector = profileImage, //ganti gambar user profile
+            imageVector = Icons.Default.Contacts, //ganti gambar user profile
             contentDescription = "User Profile",
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -121,8 +132,14 @@ fun UserProfile(profileImage: ImageVector, username: String) {
             color = MaterialTheme.colorScheme.onBackground,
             fontSize = 20.sp
         )
+        val mContext = LocalContext.current
         IconButton(
-            onClick = { navController.navigate("edit_profile") },
+            onClick = {
+                val intent = Intent(mContext, ProfileScreen::class.java)
+             //   intent.putExtra("username", response.username)
+                mContext.startActivity(intent)
+//                navController.navigate("edit_profile")
+                      },
             modifier = Modifier.weight(1f)
         ) {
             Icon(

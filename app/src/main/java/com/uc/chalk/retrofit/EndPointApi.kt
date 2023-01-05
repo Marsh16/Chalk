@@ -1,10 +1,14 @@
 package com.uc.chalk.retrofit
 
 import com.google.gson.JsonObject
+import com.uc.chalk.helper.Const
 import com.uc.chalk.model.*
 import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -35,7 +39,7 @@ interface EndPointApi {
     @GET("/loginsuccess")
     suspend fun getUser(
         @Query("user_id") user_id: String,
-        @Header("Authorization") token: String,
+      @Header("Authorization") token: String,
     ): Response<User>
 
     @GET("/fetchusername")
@@ -46,7 +50,43 @@ interface EndPointApi {
     @GET("/fetchcontactbyuserid")
     suspend fun getContact(
         @Query("user_id") user_id: String,
-    ): Response<ContactList>
+    ): Response<JsonObject>
+
+//    @GET("/fetchcontactbyuserid")
+//    suspend fun getContacts(
+//        @Query("user_id") user_id: String
+//    ) : List<Contact>
+@GET("/fetchchatbyuserid")
+suspend fun getChat(
+    @Query("user_id") user_id: String,
+    ): Response<JsonObject>
+
+    @PATCH("/users")
+    suspend fun patchUser(
+        @Query("user_id") user_id: String,
+        @Query("name") name: String,
+        @Query("username") username: String,
+        @Query("email") email: String,
+        @Query("phone_number") phone_number: String,
+        @Query("dateofbirth") dateofbirth: String,
+        @Query("password") password: String,
+    ): Response<User>
+
+    @GET("/fetchmessage")
+    suspend fun getMessage(
+        @Query("contact_id") contact_id: String,
+    ): Response<JsonObject>
+
+    @POST("/messages")
+    suspend fun postMessage(
+        @Query("messages") messages: String,
+        @Query("contact_id") contact_id: String,
+    ): Response<JsonObject>
+
+    @GET("/fetchallchatbyuserid")
+    suspend fun getChatall(
+        @Query("user_id") user_id: String,
+    ): Response<JsonObject>
 
 
 }

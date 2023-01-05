@@ -234,28 +234,7 @@ class RegisterActivity  : ComponentActivity()  {
                                     ),
 //                        visualTransformation = MaskVisualTransformation(DATE_MASK)
                                 )
-//                    BasicTextField(
-//                        value = dateofbirth,
-//                        modifier = Modifier.padding(0.dp,16.dp),
-//                        onValueChange = { dateofbirth = it },decorationBox = { innerTextField ->
-//                            Row(
-//                                Modifier
-//                                    .background(MaterialTheme.colorScheme.background)
-//                                    .border(
-//                                        2.dp,
-//                                        MaterialTheme.colorScheme.onBackground,
-//                                        RoundedCornerShape(4.dp)
-//                                    )
-//                                    .padding(16.dp)
-//                                    .fillMaxWidth()
-//                            ) {
-//                                if (dateofbirth.isEmpty()) {
-//                                    Text("Your Birthday")
-//                                }
-//                                innerTextField()  //<-- Add this
-//                            }
-//                        },
-//                    )
+//
                                 OutlinedTextField(
                                     value = password,
                                     modifier = Modifier
@@ -263,9 +242,9 @@ class RegisterActivity  : ComponentActivity()  {
                                         .padding(0.dp, 16.dp),
                                     singleLine = true,
                                     onValueChange = {
-                                        if (it.length >= minPass) {
+//                                        if (it.length >= minPass) {
                                             password = it
-                                        }
+//                                        }
                                     },
                                     placeholder = { Text(text = "Enter your password") },
                                     label = { Text(text = "Password")},
@@ -292,11 +271,11 @@ class RegisterActivity  : ComponentActivity()  {
                                         .padding(0.dp, 16.dp),
                                     singleLine = true,
                                     onValueChange = {
-                                        if (it.length >= minPass) {
+//                                        if (it.length >= minPass) {
                                             if (it == password) {
                                                 cpassword = it
                                             }
-                                        }
+//                                        }
                                     },
                                     placeholder = { Text(text = "Confirm your password") },
                                     label = { Text(text = "Confirm Password")},

@@ -27,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -40,15 +41,18 @@ import com.uc.chalk.view.auth.RegisterActivity
 import com.uc.chalk.view.theme.ui.Blue10
 import com.uc.chalk.view.theme.ui.ChalkTheme
 import com.uc.chalk.view.theme.ui.firaSans
+import com.uc.chalk.viewmodel.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 
-
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
+    lateinit var mainViewModel: MainViewModel
     lateinit var navController: NavHostController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         setContent {
             ChalkTheme {
                 // A surface container using the 'background' color from the theme
@@ -72,7 +76,7 @@ class MainActivity : ComponentActivity() {
         Scaffold(
             bottomBar = { BottomBar(navController = navController) }
         ) {
-            BottomNavGraph(navController = navController)
+            BottomNavGraph(navController = navController,this@MainActivity,mainViewModel)
         }
 
     }

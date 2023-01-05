@@ -43,6 +43,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.android.material.R
 import com.uc.chalk.helper.Const
 import com.uc.chalk.model.Token
+import com.uc.chalk.view.ContactScreen
 import com.uc.chalk.view.HomeScreen
 import com.uc.chalk.view.MainActivity
 //import com.uc.chalk.view.MainScreen
@@ -147,9 +148,9 @@ class LoginActivity: ComponentActivity() {
                                                 .padding(0.dp, 16.dp),
                                             singleLine = true,
                                             onValueChange = {
-                                                if (it.length >= 8) {
+//                                                if (it.length >= 8) {
                                                     password = it
-                                                }
+//                                                }
                                             },
                                             placeholder = { Text(text = "Enter your password") },
                                             label = { Text(text = "Password") },
@@ -177,10 +178,7 @@ class LoginActivity: ComponentActivity() {
                                             .fillMaxWidth()
                                             .padding(0.dp, 16.dp),
                                         onClick = {
-                                            var mainViewModel =
-                                                ViewModelProvider(this@LoginActivity).get(
-                                                    MainViewModel::class.java
-                                                )
+
 
 //                        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
                                             // mainViewModel.postLogin(username,password)
@@ -315,6 +313,7 @@ class LoginActivity: ComponentActivity() {
 
                 Log.e("isi token", response.token )
      Log.e("isi username", response.username)
+     Const.username=response.username
 //                    Log.e("token",Const.token)
                  val intent = Intent(ctx, MainActivity::class.java)
         intent.putExtra("username", response.username)
@@ -322,7 +321,16 @@ class LoginActivity: ComponentActivity() {
                     mainViewModel.getUserbyusername(response.username)
 
 mainViewModel.getUser(Const.user_id,response.token)
-
+     Const.token=response.token
+//     mainViewModel.user.observe(owner, Observer { response ->
+//
+//                Const.name=response.name
+//         Log.e("name",response.name)
+//                Const.email=response.email
+//                Const.phone_number=response.phone_number
+//                Const.dateofbirth=response.dateofbirth
+//                Const.password=response.password
+//     })
                })
             }
 

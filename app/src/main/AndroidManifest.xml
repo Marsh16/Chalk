@@ -32,12 +32,25 @@
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.Chalk">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".view.ProfileScreen"
+            android:exported="false"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.Chalk">
 
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+        <meta-data
+            android:name="android.app.lib_name"
+            android:value="" />
+        </activity>
+        <activity
+            android:name=".view.MessagesScreen"
+            android:exported="false"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.Chalk">
 
             <meta-data
                 android:name="android.app.lib_name"
