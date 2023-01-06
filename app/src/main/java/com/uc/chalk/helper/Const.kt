@@ -5,7 +5,7 @@ import com.uc.chalk.model.Data
 import com.uc.chalk.model.Message
 
 object Const {
-    const val BASE_URL_LOCALHOST = "http://192.168.100.52:7070"
+    const val BASE_URL_LOCALHOST = "http://192.168.43.106:7070"
     var userfail = ""
     var user_id = ""
     var username = ""

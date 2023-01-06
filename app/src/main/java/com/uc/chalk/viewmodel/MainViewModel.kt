@@ -273,7 +273,7 @@ fun getContact(user_id: String) = viewModelScope.launch {
 //            val array: JsonArray =_mahasiswa.value!!.getAsJsonArray("data")
 
                 //val list: ArrayList<Contact> = ArrayList()
-if (response.body()!=null){
+if (!response.body()!!.getAsJsonArray("data").isJsonNull){
 
     val array: JsonArray=  response.body()!!.getAsJsonArray("data")
     Log.e("data", array.toString())

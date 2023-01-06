@@ -109,6 +109,11 @@ fun ContactScreen(lifecycleOwner: LifecycleOwner, mainViewModel: MainViewModel) 
                 ContactCard(i)
                 Log.e("contact screen", ContactList(Const.contacts).toString())
             }
+//            mainViewModel.contact.observe(lifecycleOwner, Observer { response ->
+//                //menampilkan data di layar
+//                ContactList(response)
+//
+//            })
 
 
        // })
@@ -116,6 +121,7 @@ fun ContactScreen(lifecycleOwner: LifecycleOwner, mainViewModel: MainViewModel) 
 
 
     }
+
 }
 
 @Composable

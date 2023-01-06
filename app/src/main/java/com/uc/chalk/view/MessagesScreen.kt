@@ -224,12 +224,12 @@ class MessagesScreen : ComponentActivity() {
             contentAlignment = Alignment.TopStart,
         ) {
             Column {
-                Text(
-                    text = Const.contactnameselected,
-                    fontSize = 16.sp,
-                    color = MaterialTheme.colorScheme.onBackground,
-                    fontWeight = FontWeight.Medium,
-                )
+//                Text(
+//                    text = Const.contactnameselected,
+//                    fontSize = 16.sp,
+//                    color = MaterialTheme.colorScheme.onBackground,
+//                    fontWeight = FontWeight.Medium,
+//                )
 
                     Text(
                         text = message.messages, //ganti jadi jam
@@ -275,7 +275,7 @@ class MessagesScreen : ComponentActivity() {
 
             ) {
                 Text(
-                    text = Const.contactnameselected+"\n"+message.messages,//panggil username
+                    text = message.messages,//panggil username
                     modifier = Modifier
 //                    .padding(0.dp, bottom = 4.dp)
                         .weight(3f),
@@ -321,10 +321,10 @@ class MessagesScreen : ComponentActivity() {
                         textState.value.text,
                         Const.contact_id
                     )
-
-                    val intent = Intent(mContext, MessagesScreen::class.java)
-                    //   intent.putExtra("username", response.username)
-                    mContext.startActivity(intent)
+finish()
+//                    val intent = Intent(mContext, MessagesScreen::class.java)
+//                    //   intent.putExtra("username", response.username)
+//                    mContext.startActivity(intent)
                 }) {
                     Icon(imageVector = Icons.Default.Send, contentDescription = null)
 
