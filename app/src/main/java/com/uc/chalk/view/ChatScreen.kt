@@ -12,32 +12,24 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddComment
 import androidx.compose.material.icons.filled.Contacts
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import com.uc.chalk.helper.Const
 import com.uc.chalk.model.Chat
-import com.uc.chalk.model.Contact
-import com.uc.chalk.model.Data
 import com.uc.chalk.view.theme.ui.Blue20
 import com.uc.chalk.view.theme.ui.Blue5
 import com.uc.chalk.view.theme.ui.firaSans
@@ -150,7 +142,7 @@ fun tabSection(tabs: List<String>) { //ganti ke yg all, group, friend
 }
 
 @Composable
-fun ChatList(chatlist: ArrayList<Data>) {
+fun ChatList(chatlist: ArrayList<Chat>) {
     LazyColumn{
         itemsIndexed(items = chatlist){index, item ->
             ChatCard2(chat = item)
@@ -225,7 +217,7 @@ fun ChatList(chatlist: ArrayList<Data>) {
 //}
 
 @Composable
-fun ChatCard2(chat: Data) {
+fun ChatCard2(chat: Chat) {
 
 //    lateinit var navController: NavController
     lateinit var navController: NavController

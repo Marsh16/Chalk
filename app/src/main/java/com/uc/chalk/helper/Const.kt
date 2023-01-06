@@ -1,7 +1,7 @@
 package com.uc.chalk.helper
 
 import com.uc.chalk.model.Contact
-import com.uc.chalk.model.Data
+import com.uc.chalk.model.Chat
 import com.uc.chalk.model.Message
 
 object Const {
@@ -11,7 +11,7 @@ object Const {
     var username = ""
     var token = ""
     var contacts= ArrayList<Contact>()
-    var chats= ArrayList<Data>()
+    var chats= ArrayList<Chat>()
     var messages= ArrayList<Message>()
     var contactnameselected=""
     var contact_id = ""

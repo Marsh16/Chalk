@@ -1,7 +1,10 @@
 package com.uc.chalk.model
 
 data class Chat (
-    val status: Int,
-    val message: String,
-    val data: List<Data>,
-    )
+    val id: Int,
+    val phone_number: String,
+    val name: String,
+    val profilepic : String,
+    val user_id : String,
+    val contact_id : String,
+)

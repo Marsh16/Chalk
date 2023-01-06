@@ -53,15 +53,17 @@ class ProfileScreen() : ComponentActivity() {
     private lateinit var mainViewModel: MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-            setContent {
 
+            setContent {
+                mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
                 ChalkTheme {
                     Surface(
+                        
                         modifier = Modifier.fillMaxSize(),
                         color = MaterialTheme.colorScheme.background
                     ) {
-Log.e("masuk ke edit", "edita  a ")
+//                        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+//Log.e("masuk ke edit", "edita  a ")
                         var mContext = LocalContext.current
                         Box(modifier = Modifier
                             .fillMaxSize()

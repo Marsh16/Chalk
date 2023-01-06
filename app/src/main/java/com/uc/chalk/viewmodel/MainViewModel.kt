@@ -2,9 +2,6 @@ package com.uc.chalk.viewmodel
 
 //import com.uc.chalk.view.ContactList
 import android.util.Log
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,7 +11,6 @@ import com.google.gson.JsonObject
 import com.uc.chalk.helper.Const
 import com.uc.chalk.model.*
 import com.uc.chalk.repository.MainRepository
-import com.uc.chalk.retrofit.AppModule
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -360,7 +356,7 @@ if (!response.body()!!.getAsJsonArray("data").isJsonNull){
                     Log.e("Test1", name)
                     val re = "[^A-Za-z0-9 ]".toRegex()
 
-                    val add=Data(re.replace(id, "").toInt(),re.replace(name, ""),re.replace(phone_number, ""),re.replace(profilepic, ""),re.replace(user_id, ""),re.replace(contact_id, ""))
+                    val add=Chat(re.replace(id, "").toInt(),re.replace(name, ""),re.replace(phone_number, ""),re.replace(profilepic, ""),re.replace(user_id, ""),re.replace(contact_id, ""))
 //                    val add=Data(id.asInt,name,phone_number,profilepic,user_id,contact_id)
                     if ( Const.chats.size>1) {
 //                    //  Const.chats.clear()
