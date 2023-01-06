@@ -49,7 +49,7 @@ import java.security.acl.Owner
 
 @OptIn(ExperimentalMaterial3Api::class)
 @AndroidEntryPoint
-class RegisterActivity  : ComponentActivity()  {
+class RegisterActivity  : ComponentActivity() {
 
     private lateinit var mainViewModel: MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,11 +62,13 @@ class RegisterActivity  : ComponentActivity()  {
                     color = MaterialTheme.colorScheme.background
                 ) {
 
-                    Box(modifier = Modifier
-                        .fillMaxSize()
-                        .verticalScroll(state = rememberScrollState(), true, null, false)
-                        .background(MaterialTheme.colorScheme.background)
-                        .padding(32.dp)) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .verticalScroll(state = rememberScrollState(), true, null, false)
+                            .background(MaterialTheme.colorScheme.background)
+                            .padding(32.dp)
+                    ) {
                         Column {
                             Text(
                                 text = "Chalk",
@@ -82,7 +84,8 @@ class RegisterActivity  : ComponentActivity()  {
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onBackground,
                                 fontSize = MaterialTheme.typography.headlineLarge.fontSize,
-                                modifier = Modifier.padding(0.dp,16.dp))
+                                modifier = Modifier.padding(0.dp, 16.dp)
+                            )
                             var name by rememberSaveable { mutableStateOf("") }
                             var username by rememberSaveable { mutableStateOf("") }
                             var email by remember { mutableStateOf("") }
@@ -95,10 +98,11 @@ class RegisterActivity  : ComponentActivity()  {
                                 painterResource(id = com.google.android.material.R.drawable.design_ic_visibility)
                             else
                                 painterResource(id = com.google.android.material.R.drawable.design_ic_visibility_off)
-                            val cancelIcon = painterResource(id = com.google.android.material.R.drawable.mtrl_ic_cancel)
+                            val cancelIcon =
+                                painterResource(id = com.google.android.material.R.drawable.mtrl_ic_cancel)
                             val maxChar = 200
                             val minPass = 8
-                            Column(modifier = Modifier.padding(0.dp,0.dp,0.dp,8.dp)) {
+                            Column(modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 8.dp)) {
                                 OutlinedTextField(
                                     value = name,
                                     onValueChange = {
@@ -106,8 +110,8 @@ class RegisterActivity  : ComponentActivity()  {
                                             name = it
                                         }
                                     },
-                                    label = {Text(text = "Name")},
-                                    placeholder = { Text(text = "Enter your name")},
+                                    label = { Text(text = "Name") },
+                                    placeholder = { Text(text = "Enter your name") },
 //                        trailingIcon = IconButton(onClick = { name }) {
 //                            Icon(painter = cancelIcon, contentDescription = "Cancel Icon")
 //                        },
@@ -130,7 +134,8 @@ class RegisterActivity  : ComponentActivity()  {
                                     onValueChange = {
                                         if (it.length <= maxChar) {
                                             username = it
-                                        } },
+                                        }
+                                    },
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(0.dp, 16.dp),
@@ -187,7 +192,8 @@ class RegisterActivity  : ComponentActivity()  {
                                     onValueChange = {
                                         if (it.length <= maxChar) {
                                             phone_number = it
-                                        } },
+                                        }
+                                    },
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(0.dp, 16.dp),
@@ -243,18 +249,19 @@ class RegisterActivity  : ComponentActivity()  {
                                     singleLine = true,
                                     onValueChange = {
 //                                        if (it.length >= minPass) {
-                                            password = it
+                                        password = it
 //                                        }
                                     },
                                     placeholder = { Text(text = "Enter your password") },
-                                    label = { Text(text = "Password")},
+                                    label = { Text(text = "Password") },
                                     trailingIcon = {
                                         IconButton(onClick = {
                                             passwordVisibility = !passwordVisibility
                                         }) {
                                             Icon(
                                                 painter = passIcon,
-                                                contentDescription = "Visibility Icon")
+                                                contentDescription = "Visibility Icon"
+                                            )
                                         }
                                     },
                                     keyboardOptions = KeyboardOptions(
@@ -264,58 +271,63 @@ class RegisterActivity  : ComponentActivity()  {
                                     visualTransformation = if (passwordVisibility) VisualTransformation.None
                                     else PasswordVisualTransformation()
                                 )
-                                OutlinedTextField(
-                                    value = cpassword,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(0.dp, 16.dp),
-                                    singleLine = true,
-                                    onValueChange = {
-//                                        if (it.length >= minPass) {
-                                            if (it == password) {
-                                                cpassword = it
-                                            }
+//                                OutlinedTextField(
+//                                    value = cpassword,
+//                                    modifier = Modifier
+//                                        .fillMaxWidth()
+//                                        .padding(0.dp, 16.dp),
+//                                    singleLine = true,
+//                                    onValueChange = {
+////                                        if (it.length >= minPass) {
+//                                            if (it == password) {
+//                                                cpassword = it
+//                                            }
+////                                        }
+//                                    },
+//                                    placeholder = { Text(text = "Confirm your password") },
+//                                    label = { Text(text = "Confirm Password")},
+//                                    trailingIcon = {
+//                                        IconButton(onClick = {
+//                                            passwordVisibility = !passwordVisibility
+//                                        }) {
+//                                            Icon(
+//                                                painter = passIcon,
+//                                                contentDescription = "Visibility Icon")
 //                                        }
-                                    },
-                                    placeholder = { Text(text = "Confirm your password") },
-                                    label = { Text(text = "Confirm Password")},
-                                    trailingIcon = {
-                                        IconButton(onClick = {
-                                            passwordVisibility = !passwordVisibility
-                                        }) {
-                                            Icon(
-                                                painter = passIcon,
-                                                contentDescription = "Visibility Icon")
-                                        }
-                                    },
-                                    keyboardOptions = KeyboardOptions(
-                                        keyboardType = KeyboardType.Password,
-                                        imeAction = ImeAction.Done
-                                    ),
-                                    visualTransformation = if (passwordVisibility) VisualTransformation.None
-                                    else PasswordVisualTransformation()
-                                )
-                            }
+//                                    },
+//                                    keyboardOptions = KeyboardOptions(
+//                                        keyboardType = KeyboardType.Password,
+//                                        imeAction = ImeAction.Done
+//                                    ),
+//                                    visualTransformation = if (passwordVisibility) VisualTransformation.None
+//                                    else PasswordVisualTransformation()
+//                                )
+//                            }
 
-                            val mContext = LocalContext.current
+                                val mContext = LocalContext.current
 
-                            Button(
-                                modifier = Modifier
-                                    .padding(0.dp, 16.dp, 0.dp, 8.dp)
-                                    .fillMaxWidth(),
-                                onClick = {
-                                    checker( mContext,
-                                        name,
-                                        username,
-                                        email,
-                                        phone_number,
-                                        dateofbirth,
-                                        password, cpassword )
-                                    var mainViewModel= ViewModelProvider(this@RegisterActivity).get(MainViewModel::class.java)
+                                Button(
+                                    modifier = Modifier
+                                        .padding(0.dp, 16.dp, 0.dp, 8.dp)
+                                        .fillMaxWidth(),
+                                    onClick = {
+                                        checker(
+                                            mContext,
+                                            name,
+                                            username,
+                                            email,
+                                            phone_number,
+                                            dateofbirth,
+                                            password
+                                        )
+                                        var mainViewModel =
+                                            ViewModelProvider(this@RegisterActivity).get(
+                                                MainViewModel::class.java
+                                            )
 //                        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-                                    mainViewModel.getcekuser(username)
+                                        mainViewModel.getcekuser(username)
 
-                                  //  mainViewModel.cek.observe(this@RegisterActivity, Observer { response ->
+                                        //  mainViewModel.cek.observe(this@RegisterActivity, Observer { response ->
                                         Log.e("Data Mahasiswa", Const.userfail)
                                         if ("Unauthorized" in Const.userfail) {
                                             Toast.makeText(
@@ -323,9 +335,19 @@ class RegisterActivity  : ComponentActivity()  {
                                                 "User already Exist",
                                                 Toast.LENGTH_SHORT
                                             ).show()
-                                            username=""
+                                            username = ""
                                         } else {
-                                      postUser(this@RegisterActivity,mContext,name,username,email,phone_number,dateofbirth,"",password,cpassword)
+                                            postUser(
+                                                this@RegisterActivity,
+                                                mContext,
+                                                name,
+                                                username,
+                                                email,
+                                                phone_number,
+                                                dateofbirth,
+                                                "",
+                                                password
+                                            )
 //                                            Toast.makeText(
 //                                                mContext,
 //                                                "Form: name is $name and email is $email",
@@ -333,135 +355,138 @@ class RegisterActivity  : ComponentActivity()  {
 //                                            ).show()
                                         }
 
-                                  //  })
+                                        //  })
 
 
-
-                                }) {
-                                Text(text = "Register")
-                            }
-                            Row {
-                                Spacer(modifier = Modifier
-                                    .weight(1f)
-                                    .padding(0.dp, 0.dp, 0.dp, 16.dp))
-                                Text(
-                                    text = "Already Have An Account? ",
-                                    fontFamily = FontFamily.SansSerif,
-                                    fontWeight = FontWeight.SemiBold,
-                                    color = MaterialTheme.colorScheme.onBackground,
-                                    fontSize = 12.sp
-                                )
-                                Text(
-                                    text = "Log in",
-                                    fontFamily = FontFamily.SansSerif,
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.primary,
-                                    fontSize = 12.sp,
-                                    modifier = Modifier.clickable {
-                                        val intent = Intent(mContext, LoginActivity::class.java)
-                                        mContext.startActivity(intent)
-                                    }
-                                )
-                                Spacer(modifier = Modifier.weight(1f))
+                                    }) {
+                                    Text(text = "Register")
+                                }
+                                Row {
+                                    Spacer(
+                                        modifier = Modifier
+                                            .weight(1f)
+                                            .padding(0.dp, 0.dp, 0.dp, 16.dp)
+                                    )
+                                    Text(
+                                        text = "Already Have An Account? ",
+                                        fontFamily = FontFamily.SansSerif,
+                                        fontWeight = FontWeight.SemiBold,
+                                        color = MaterialTheme.colorScheme.onBackground,
+                                        fontSize = 12.sp
+                                    )
+                                    Text(
+                                        text = "Log in",
+                                        fontFamily = FontFamily.SansSerif,
+                                        fontWeight = FontWeight.Bold,
+                                        color = MaterialTheme.colorScheme.primary,
+                                        fontSize = 12.sp,
+                                        modifier = Modifier.clickable {
+                                            val intent = Intent(mContext, LoginActivity::class.java)
+                                            mContext.startActivity(intent)
+                                        }
+                                    )
+                                    Spacer(modifier = Modifier.weight(1f))
+                                }
                             }
                         }
                     }
                 }
             }
         }
+
+
     }
 
-
-}
-
-private fun postUser(
-    th: ViewModelStoreOwner,
-    ctx: Context,
-    name: String,
-    username: String,
-    email: String,
-    phone_number: String,
-    dateofbirth: String,
-    profilepic: String,
-    password: String,
-    confirm: String,
-) {
-    var mainViewModel= ViewModelProvider(th).get(MainViewModel::class.java)
+    private fun postUser(
+        th: ViewModelStoreOwner,
+        ctx: Context,
+        name: String,
+        username: String,
+        email: String,
+        phone_number: String,
+        dateofbirth: String,
+        profilepic: String,
+        password: String,
+//    confirm: String,
+    ) {
+        var mainViewModel = ViewModelProvider(th).get(MainViewModel::class.java)
 //                        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-    mainViewModel.getcekuser(username)
-    if (name == "") {
-        Toast.makeText(
-            ctx,
-            "name is empty",
-            Toast.LENGTH_SHORT
-        ).show()
-    } else if (username == "") {
-        Toast.makeText(
-            ctx,
-            "username is empty",
-            Toast.LENGTH_SHORT
-        ).show()
-    } else if (email == "") {
-        Toast.makeText(
-            ctx,
-            "email is empty",
-            Toast.LENGTH_SHORT
-        ).show()
-    } else if (phone_number == "") {
-        Toast.makeText(
-            ctx,
-            "phone number is empty",
-            Toast.LENGTH_SHORT
-        ).show()
-    }
-    else if (dateofbirth==""){
-        Toast.makeText(
-            ctx,
-            "date of birth is empty",
-            Toast.LENGTH_SHORT
-        ).show()
-    }  else if (password==""){
-        Toast.makeText(
-            ctx,
-            "password is empty",
-            Toast.LENGTH_SHORT
-        ).show()
-    } else if (confirm==""){
-        Toast.makeText(
-            ctx,
-            "confirm password is empty",
-            Toast.LENGTH_SHORT
-        ).show()
-    }else if (confirm!=password){
-        Toast.makeText(
-            ctx,
-            "confirm password is wrong",
-            Toast.LENGTH_SHORT
-        ).show()
-    }else{
-        mainViewModel.postUser(
-            name,
-            username,
-            email,
-            phone_number,
-            dateofbirth,
-            profilepic,
-            password,
-        )
-        val intent = Intent(ctx, LoginActivity::class.java)
-        ctx.startActivity(intent)
+        mainViewModel.getcekuser(username)
+        if (name == "") {
+            Toast.makeText(
+                ctx,
+                "name is empty",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else if (username == "") {
+            Toast.makeText(
+                ctx,
+                "username is empty",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else if (email == "") {
+            Toast.makeText(
+                ctx,
+                "email is empty",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else if (phone_number == "") {
+            Toast.makeText(
+                ctx,
+                "phone number is empty",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else if (dateofbirth == "") {
+            Toast.makeText(
+                ctx,
+                "date of birth is empty",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else if (password == "") {
+            Toast.makeText(
+                ctx,
+                "password is empty",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+//    } else if (confirm==""){
+//        Toast.makeText(
+//            ctx,
+//            "confirm password is empty",
+//            Toast.LENGTH_SHORT
+//        ).show()
+//    }else if (confirm!=password){
+//        Toast.makeText(
+//            ctx,
+//            "confirm password is wrong",
+//            Toast.LENGTH_SHORT
+//        ).show()
+//    }
+        else {
+            mainViewModel.postUser(
+                name,
+                username,
+                email,
+                phone_number,
+                dateofbirth,
+                profilepic,
+                password,
+            )
+            val intent = Intent(ctx, LoginActivity::class.java)
+            ctx.startActivity(intent)
+        }
+
     }
 
-}
     private fun checker(
         ctx: Context,
         name: String,
-                          username: String,
-                          email: String,
-                          phone_number: String,
-                          dateofbirth: String,
-                          password: String,
-                          confirm: String,
+        username: String,
+        email: String,
+        phone_number: String,
+        dateofbirth: String,
+        password: String,
+//                          confirm: String,
     ) {
         if (name == "") {
             Toast.makeText(
@@ -487,45 +512,43 @@ private fun postUser(
                 "phone number is empty",
                 Toast.LENGTH_SHORT
             ).show()
-        }
-        else if (dateofbirth==""){
+        } else if (dateofbirth == "") {
             Toast.makeText(
                 ctx,
                 "date of birth is empty",
                 Toast.LENGTH_SHORT
             ).show()
-        }  else if (password==""){
+        } else if (password == "") {
             Toast.makeText(
                 ctx,
                 "password is empty",
                 Toast.LENGTH_SHORT
             ).show()
         }
-        else if (confirm==""){
-            Toast.makeText(
-                ctx,
-                "confirm password is empty",
-                Toast.LENGTH_SHORT
-            ).show()
-        }else if (confirm!=password){
-            Toast.makeText(
-                ctx,
-                "confirm password is wrong",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
+//        else if (confirm==""){
+//            Toast.makeText(
+//                ctx,
+//                "confirm password is empty",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        }else if (confirm!=password){
+//            Toast.makeText(
+//                ctx,
+//                "confirm password is wrong",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        }
 
 
     }
 
 
+    @Preview(showBackground = true)
+    @Composable
+    fun DefaultPreview() {
+        ChalkTheme {
 
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    ChalkTheme {
-
+        }
     }
 }
 

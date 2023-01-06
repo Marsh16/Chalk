@@ -21,6 +21,7 @@ import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -40,6 +41,8 @@ import com.uc.chalk.helper.Const
 import com.uc.chalk.model.Contact
 import com.uc.chalk.model.ContactList
 import com.uc.chalk.retrofit.EndPointApi
+import com.uc.chalk.view.theme.ui.Blue20
+import com.uc.chalk.view.theme.ui.Blue30
 import com.uc.chalk.view.theme.ui.ChalkTheme
 import com.uc.chalk.view.theme.ui.firaSans
 import com.uc.chalk.viewmodel.MainViewModel
@@ -104,11 +107,14 @@ fun ContactScreen(lifecycleOwner: LifecycleOwner, mainViewModel: MainViewModel) 
             //ContactList(contactList = response)
                         //ContactList(Const.contacts)
                        // Log.e("contact screen", ContactList(Const.contacts).toString())
-            for (i in Const.contacts){
-                //Log.e("contact screen", i.toString())
-                ContactCard(i)
-                Log.e("contact screen", ContactList(Const.contacts).toString())
+//            if(Const.contacts.size>0){
+                for (i in Const.contacts){
+                    //Log.e("contact screen", i.toString())
+                    ContactCard(i)
+                    Log.e("contact screen", ContactList(Const.contacts).toString())
+//                }
             }
+
 //            mainViewModel.contact.observe(lifecycleOwner, Observer { response ->
 //                //menampilkan data di layar
 //                ContactList(response)
@@ -154,7 +160,8 @@ fun ContactCard(contact: Contact) {
     lateinit var navController: NavController
 
     Row(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth().padding(0.dp,0.dp,0.dp,8.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
 
         Image(
@@ -163,32 +170,32 @@ fun ContactCard(contact: Contact) {
             contentDescription = "User Profile",
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .size(48.dp)
+//                .size(48.dp)
                 .clip(CircleShape)
                 .weight(1f)
         )
         Column(modifier = Modifier
             .fillMaxHeight()
-            .weight(3f)
-            .padding(16.dp, 0.dp)
+            .weight(4f)
+            .padding(16.dp, 0.dp),
         ) {
-            Text(
-                text = contact.name, //panggil username
-                modifier = Modifier
-                    .padding(0.dp, bottom = 4.dp)
-                    .weight(3f),
-                maxLines = 1,
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.SansSerif,
-                color = MaterialTheme.colorScheme.onBackground,
-                fontSize = 14.sp
-            )
+//            Text(
+//                text = contact.name, //panggil username
+//                modifier = Modifier
+//                    .padding(0.dp, bottom = 4.dp)
+//                    .weight(3f),
+//                maxLines = 1,
+//                fontWeight = FontWeight.Bold,
+//                fontFamily = FontFamily.SansSerif,
+//                color = MaterialTheme.colorScheme.onBackground,
+//                fontSize = 14.sp
+//            )
             Text(
                 text = contact.name,
                 maxLines = 1,
-                fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.ExtraBold,
                 fontFamily = FontFamily.SansSerif,
-                fontSize = 12.sp,
+                fontSize = 14.sp,
                 color = MaterialTheme.colorScheme.secondary
             )
             Text(
@@ -196,26 +203,26 @@ fun ContactCard(contact: Contact) {
                 maxLines = 1,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.SansSerif,
-                fontSize = 12.sp,
-                color = MaterialTheme.colorScheme.secondary
+                fontSize = 14.sp,
+                color = Blue20
             )
         }
-        IconButton(
-            onClick = { navController.navigate("editprofile_screen") }, //harusnya delete contact
-            modifier = Modifier.weight(1f)
-        ) {
-            Icon(
-                imageVector = Icons.Outlined.Delete,
-                contentDescription = "Delete Icon")
-        }
-        IconButton(
-            onClick = { navController.navigate("editprofile_screen") },
-            modifier = Modifier.weight(1f)
-        ) {
-            Icon(
-                imageVector = Icons.Outlined.Edit,
-                contentDescription = "Edit Icon")
-        }
+//        IconButton(
+//            onClick = { navController.navigate("editprofile_screen") }, //harusnya delete contact
+//            modifier = Modifier.weight(1f)
+//        ) {
+//            Icon(
+//                imageVector = Icons.Outlined.Delete,
+//                contentDescription = "Delete Icon")
+//        }
+//        IconButton(
+//            onClick = { navController.navigate("editprofile_screen") },
+//            modifier = Modifier.weight(1f)
+//        ) {
+//            Icon(
+//                imageVector = Icons.Outlined.Edit,
+//                contentDescription = "Edit Icon")
+//        }
     }
 
 }

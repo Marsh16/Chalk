@@ -38,6 +38,7 @@ import com.uc.chalk.helper.Const
 import com.uc.chalk.model.Chat
 import com.uc.chalk.model.Contact
 import com.uc.chalk.model.Data
+import com.uc.chalk.view.theme.ui.Blue20
 import com.uc.chalk.view.theme.ui.Blue5
 import com.uc.chalk.view.theme.ui.firaSans
 //import com.uc.chalk.view.widgets.ChatCard
@@ -62,6 +63,7 @@ fun ChatScreen(lifecycleOwner: LifecycleOwner, mainViewModel: MainViewModel) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
+                    //.verticalScroll(state = rememberScrollState(), true)
                     .padding(0.dp, bottom = 8.dp)
             ) {
                 Text(
@@ -89,6 +91,7 @@ fun ChatScreen(lifecycleOwner: LifecycleOwner, mainViewModel: MainViewModel) {
                         tint = MaterialTheme.colorScheme.primary
                     )
                 }
+
             }
 //            tabSection(tabs = listOf("All", "Friends", "Groups","Channels"))
             tabSection(tabs = listOf("All", "Friends", "Groups","Channels"))
@@ -228,7 +231,10 @@ fun ChatCard2(chat: Data) {
     lateinit var navController: NavController
     val mContext = LocalContext.current
     Row(
-        modifier = Modifier.fillMaxWidth().wrapContentHeight()
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(30.dp)
+            .padding(0.dp, bottom = 16.dp)
             .clickable {
 //               navController.navigate("messages_screen")
                 val intent = Intent(mContext, MessagesScreen::class.java)
@@ -246,33 +252,48 @@ fun ChatCard2(chat: Data) {
             }
 
     ) {
-
         Image(
 //            icon_filled = Icons.Default.Chat,
             imageVector = Icons.Default.Contacts, //ganti gambar user profile
             contentDescription = "User Profile",
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .size(48.dp)
+//                .size(48.dp)
                 .clip(CircleShape)
                 .weight(1f)
         )
         Column(modifier = Modifier
             .fillMaxHeight()
-            .weight(3f)
-            .padding(16.dp, 0.dp)
-
+            .weight(4f)
+            .padding(16.dp, 0.dp),
+//            verticalArrangement = Arrangement.Center
         ) {
+//            Text(
+//                text = "Name: "+ chat.name + "\nPhone: "+ chat.phone_number, //panggil username
+//                modifier = Modifier
+////                    .padding(0.dp, bottom = 4.dp)
+//                    .weight(4f),
+//                maxLines = 2,
+//                fontWeight = FontWeight.Bold,
+//                fontFamily = FontFamily.SansSerif,
+//                color = MaterialTheme.colorScheme.onBackground,
+//                fontSize = 14.sp
+//            )
             Text(
-                text = "Name: "+ chat.name + "\nPhone: "+ chat.phone_number, //panggil username
-                modifier = Modifier
-//                    .padding(0.dp, bottom = 4.dp)
-                    .weight(3f),
-                maxLines = 2,
+                text = chat.name,
+                maxLines = 1,
+                fontWeight = FontWeight.ExtraBold,
+                fontFamily = FontFamily.SansSerif,
+                fontSize = 14.sp,
+                color = MaterialTheme.colorScheme.secondary
+            )
+            Text(
+                text = chat.phone_number,
+                maxLines = 1,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.SansSerif,
-                color = MaterialTheme.colorScheme.onBackground,
-                fontSize = 14.sp
+                fontSize = 14.sp,
+                color = Blue20
             )
         }
 

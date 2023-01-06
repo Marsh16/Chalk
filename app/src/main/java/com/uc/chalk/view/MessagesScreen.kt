@@ -219,11 +219,12 @@ class MessagesScreen : ComponentActivity() {
                     1.dp,
                     Color.Black, RoundedCornerShape(5.dp)
                 )
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .background(Blue5),
             //z.background(if (message == "user_logged") Blue20 else Blue5), //kalau dari user 20, yg lain 5
             contentAlignment = Alignment.TopStart,
         ) {
-            Column {
+            Column (modifier = Modifier.padding(16.dp)){
 //                Text(
 //                    text = Const.contactnameselected,
 //                    fontSize = 16.sp,
@@ -296,7 +297,7 @@ class MessagesScreen : ComponentActivity() {
         val textState = remember { mutableStateOf(TextFieldValue()) }
         val scrollState = rememberScrollState()
 
-        Box(modifier = Modifier.background(Blue5),Alignment.BottomCenter) {
+        Box(modifier = Modifier.background(Blue15),Alignment.BottomCenter) {
             Row(
                 modifier = Modifier
                     .padding(16.dp)
@@ -321,10 +322,8 @@ class MessagesScreen : ComponentActivity() {
                         textState.value.text,
                         Const.contact_id
                     )
-finish()
-//                    val intent = Intent(mContext, MessagesScreen::class.java)
-//                    //   intent.putExtra("username", response.username)
-//                    mContext.startActivity(intent)
+
+                   finish()
                 }) {
                     Icon(imageVector = Icons.Default.Send, contentDescription = null)
 

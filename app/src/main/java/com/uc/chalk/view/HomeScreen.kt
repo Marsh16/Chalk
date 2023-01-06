@@ -15,6 +15,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
@@ -112,16 +113,17 @@ fun HomeScreenPreview() {
 fun UserProfile(username: String) {
     lateinit var navController: NavController
     Row(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
             imageVector = Icons.Default.Contacts, //ganti gambar user profile
             contentDescription = "User Profile",
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .size(48.dp)
+//                .size(20.dp)
                 .clip(CircleShape)
-                .weight(2f)
+                .weight(1f)
         )
         Text(
             text = username, //panggil username
