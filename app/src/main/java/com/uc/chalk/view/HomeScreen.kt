@@ -1,12 +1,9 @@
 package com.uc.chalk.view
 
 import android.content.Intent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.Edit
@@ -65,9 +62,13 @@ fun HomeScreen(lifecycleOwner: LifecycleOwner,mainViewModel: MainViewModel) {
                     fontSize = MaterialTheme.typography.headlineLarge.fontSize,
                     textAlign = TextAlign.Start,
                 )
+                val mContext = LocalContext.current
                 IconButton(
                     onClick = {
-                        navController.navigate(route = "chat_screen")
+//                        navController.navigate(route = "chat_screen")
+                        val intent = Intent(mContext, NewChat::class.java)
+                        //   intent.putExtra("username", response.username)
+                        mContext.startActivity(intent)
                     }
                 ) {
                     Icon(
@@ -81,9 +82,14 @@ fun HomeScreen(lifecycleOwner: LifecycleOwner,mainViewModel: MainViewModel) {
                         tint = MaterialTheme.colorScheme.primary
                     )
                 }
+
                 IconButton(
+
                     onClick = {
-                        navController.navigate(route = "contact_screen") //harusnya ke add contact
+//                        navController.navigate(route = "contact_screen") //harusnya ke add contact
+                        val intent = Intent(mContext, NewContact::class.java)
+//                        //   intent.putExtra("username", response.username)
+                        mContext.startActivity(intent)
                     }
                 ) {
                     Icon(
@@ -111,10 +117,16 @@ fun HomeScreenPreview() {
 
 @Composable
 fun UserProfile(username: String) {
-    lateinit var navController: NavController
+//    lateinit var navController: NavController
+    val mContext = LocalContext.current
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().clickable {
+            val intent = Intent(mContext, ViewProfile::class.java)
+            //   intent.putExtra("username", response.username)
+            mContext.startActivity(intent)
+        },
         verticalAlignment = Alignment.CenterVertically
+
     ) {
         Image(
             imageVector = Icons.Default.Contacts, //ganti gambar user profile

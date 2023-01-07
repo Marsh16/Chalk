@@ -58,7 +58,7 @@ class ProfileScreen() : ComponentActivity() {
                 mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
                 ChalkTheme {
                     Surface(
-                        
+
                         modifier = Modifier.fillMaxSize(),
                         color = MaterialTheme.colorScheme.background
                     ) {

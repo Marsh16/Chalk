@@ -6,6 +6,7 @@ import com.uc.chalk.model.*
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.PATCH
@@ -30,6 +31,19 @@ interface EndPointApi {
         @Query("password") password: String,
     ): Response<User>
 
+    @POST("/contacts")
+    suspend fun postContact(
+        @Query("name") name: String,
+        @Query("phone_number") phone_number: String,
+        @Query("profilepic") profilepic: String,
+        @Query("user_id") user_id: String,
+    ): Response<Contact>
+
+    @POST("/chats")
+    suspend fun postChat(
+        @Query("contact_id") contact_id: String,
+    ): Response<Chat>
+
     @GET("/login")
     suspend fun getLogin(
         @Query("username") username: String,
@@ -52,6 +66,11 @@ interface EndPointApi {
         @Query("user_id") user_id: String,
     ): Response<JsonObject>
 
+    @DELETE("/contacts")
+    suspend fun deleteContact(
+        @Query("contact_id") contact_id: String,
+    ): Response<Contact>
+
 //    @GET("/fetchcontactbyuserid")
 //    suspend fun getContacts(
 //        @Query("user_id") user_id: String
@@ -71,6 +90,16 @@ suspend fun getChat(
         @Query("dateofbirth") dateofbirth: String,
         @Query("password") password: String,
     ): Response<User>
+
+
+    @PATCH("/contacts")
+    suspend fun patchContact(
+        @Query("contact_id") contact_id: String,
+        @Query("name") name: String,
+        @Query("phone_number") phone_number: String,
+        @Query("profilepic") profilepic: String,
+        @Query("user_id") user_id: String,
+    ): Response<Contact>
 
     @GET("/fetchmessage")
     suspend fun getMessage(

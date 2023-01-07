@@ -47,6 +47,46 @@
             android:value="" />
         </activity>
         <activity
+            android:name=".view.EditContact"
+            android:exported="false"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.Chalk">
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".view.NewContact"
+            android:exported="false"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.Chalk">
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".view.NewChat"
+            android:exported="false"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.Chalk">
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".view.ViewProfile"
+            android:exported="false"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.Chalk">
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".view.MessagesScreen"
             android:exported="false"
             android:label="@string/title_activity_login"

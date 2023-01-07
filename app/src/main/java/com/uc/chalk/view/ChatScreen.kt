@@ -67,9 +67,13 @@ fun ChatScreen(lifecycleOwner: LifecycleOwner, mainViewModel: MainViewModel) {
                     fontSize = MaterialTheme.typography.headlineLarge.fontSize,
                     textAlign = TextAlign.Start,
                 )
+                val mContext = LocalContext.current
                 IconButton(
                     onClick = {
-                        navController.navigate(route = "chat_screen") //add chat/group
+                       // navController.navigate(route = "chat_screen") //add chat/group
+                        val intent = Intent(mContext, NewChat::class.java)
+                        //   intent.putExtra("username", response.username)
+                        mContext.startActivity(intent)
                     }
                 ) {
                     Icon(
@@ -86,7 +90,7 @@ fun ChatScreen(lifecycleOwner: LifecycleOwner, mainViewModel: MainViewModel) {
 
             }
 //            tabSection(tabs = listOf("All", "Friends", "Groups","Channels"))
-            tabSection(tabs = listOf("All", "Friends", "Groups","Channels"))
+            tabSection(tabs = listOf("All", "Friends"))
             mainViewModel.getChat(Const.user_id)
 //       mainViewModel.chat.observe(lifecycleOwner, Observer { response ->
           // Log.e("ok", ChatList(chatlist = response).toString())

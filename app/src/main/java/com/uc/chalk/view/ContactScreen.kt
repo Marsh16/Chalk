@@ -1,6 +1,7 @@
 package com.uc.chalk.view
 
 //import androidx.compose.foundation.layout.RowScopeInstance.weight
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -25,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -84,9 +86,13 @@ fun ContactScreen(lifecycleOwner: LifecycleOwner, mainViewModel: MainViewModel) 
                     fontSize = MaterialTheme.typography.headlineLarge.fontSize,
                     textAlign = TextAlign.Start,
                 )
+                val mContext = LocalContext.current
                 IconButton(
                     onClick = {
-                        navController.navigate(route = "contact_screen") //harusnya ke addContact
+                       // navController.navigate(route = "contact_screen") //harusnya ke addContact
+                        val intent = Intent(mContext, NewContact::class.java)
+                        //   intent.putExtra("username", response.username)
+                        mContext.startActivity(intent)
                     }
                 ) {
                     Icon(
@@ -110,8 +116,8 @@ fun ContactScreen(lifecycleOwner: LifecycleOwner, mainViewModel: MainViewModel) 
 //            if(Const.contacts.size>0){
                 for (i in Const.contacts){
                     //Log.e("contact screen", i.toString())
-                    ContactCard(i)
-                    Log.e("contact screen", ContactList(Const.contacts).toString())
+                    ContactCard(i,mainViewModel)
+                   // Log.e("contact screen", ContactList(Const.contacts).toString())
 //                }
             }
 
@@ -130,22 +136,22 @@ fun ContactScreen(lifecycleOwner: LifecycleOwner, mainViewModel: MainViewModel) 
 
 }
 
-@Composable
-fun ContactList(contactList: ArrayList<Contact>) {
-    LazyColumn{
-        itemsIndexed(items = contactList){index, item ->
-            ContactCard(contact = item)
-            Log.e("ok","ok")
-            if(  ContactCard(contact = item) != ContactCard(contact = item)){
-                Log.e("error","should be "+ ContactCard(contact = item))
-                throw AssertionError()
-            }else{
-                Log.e("ok","ok")
-            }
-        }
-
-    }
-}
+//@Composable
+//fun ContactList(contactList: ArrayList<Contact>) {
+//    LazyColumn{
+//        itemsIndexed(items = contactList){index, item ->
+//            ContactCard(contact = item, )
+//            Log.e("ok","ok")
+//            if(  ContactCard(contact = item) != ContactCard(contact = item)){
+//                Log.e("error","should be "+ ContactCard(contact = item))
+//                throw AssertionError()
+//            }else{
+//                Log.e("ok","ok")
+//            }
+//        }
+//
+//    }
+//}
 
 @Preview(showBackground = true)
 @Composable
@@ -154,13 +160,15 @@ fun ContactScreenPreview() {
 }
 
 @Composable
-fun ContactCard(contact: Contact) {
+fun ContactCard(contact: Contact,mainViewModel: MainViewModel) {
 
 //    lateinit var navController: NavController
     lateinit var navController: NavController
 
     Row(
-        modifier = Modifier.fillMaxWidth().padding(0.dp,0.dp,0.dp,8.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(0.dp, 0.dp, 0.dp, 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
@@ -207,22 +215,74 @@ fun ContactCard(contact: Contact) {
                 color = Blue20
             )
         }
-//        IconButton(
-//            onClick = { navController.navigate("editprofile_screen") }, //harusnya delete contact
-//            modifier = Modifier.weight(1f)
-//        ) {
-//            Icon(
-//                imageVector = Icons.Outlined.Delete,
-//                contentDescription = "Delete Icon")
-//        }
-//        IconButton(
-//            onClick = { navController.navigate("editprofile_screen") },
-//            modifier = Modifier.weight(1f)
-//        ) {
-//            Icon(
-//                imageVector = Icons.Outlined.Edit,
-//                contentDescription = "Edit Icon")
-//        }
+        val openDialog = remember { mutableStateOf(false)  }
+        IconButton(
+            onClick = {
+                openDialog.value = true
+
+//                navController.navigate("editprofile_screen")
+//
+
+//                      mainViewModel.deleteContact(Const.contact_id)
+                      }, //harusnya delete contact
+            modifier = Modifier.weight(1f)
+        ) {
+            Icon(
+                imageVector = Icons.Outlined.Delete,
+                contentDescription = "Delete Icon")
+        }
+        if (openDialog.value) {
+
+            AlertDialog(
+                onDismissRequest = {
+                    // Dismiss the dialog when the user clicks outside the dialog or on the back
+                    // button. If you want to disable that functionality, simply use an empty
+                    // onCloseRequest.
+                    openDialog.value = false
+                },
+                title = {
+                    Text(text = "Delete Contact?")
+                },
+                text = {
+                    Text("Are You Sure Want To Delete Contact")
+                },
+                confirmButton = {
+                    Button(
+
+                        onClick = {
+                            openDialog.value = false
+                            mainViewModel.deleteContact(Const.contact_id)
+                        }) {
+                        Text("Yes")
+                    }
+                },
+                dismissButton = {
+                    Button(
+
+                        onClick = {
+                            openDialog.value = false
+                        }) {
+                        Text("No")
+                    }
+                }
+            )
+        }
+        val mContext = LocalContext.current
+        IconButton(
+            onClick = {
+                val intent = Intent(mContext, EditContact::class.java)
+//                        //   intent.putExtra("username", response.username)
+                mContext.startActivity(intent)
+//                navController.navigate("editprofile_screen")
+                      },
+            modifier = Modifier.weight(1f)
+        ) {
+            Icon(
+                imageVector = Icons.Outlined.Edit,
+                contentDescription = "Edit Icon")
+        }
     }
 
 }
+
+
