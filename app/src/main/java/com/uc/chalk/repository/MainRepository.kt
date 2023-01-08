@@ -16,6 +16,7 @@ class MainRepository @Inject constructor(private val api: EndPointApi){
     suspend fun getContact(user_id: String)= api.getContact(user_id)
     suspend fun getChat(user_id: String)= api.getChat(user_id)
     suspend fun deleteContact(contact_id: String)= api.deleteContact(contact_id)
+    suspend fun deleteChat(contact_id: String)= api.deleteChats(contact_id)
     suspend fun getMessage(contact_id: String)= api.getMessage(contact_id)
     suspend fun patchUser(user_id: String,name: String,username: String, email: String,phone_number: String, dateofbirth: String,password: String )= api.patchUser(user_id,name, username,email,phone_number,dateofbirth,password)
     suspend fun patchContact(contact_id: String,name: String,phone_number: String, profilepic: String,user_id: String )= api.patchContact(contact_id,name, phone_number,profilepic,user_id)

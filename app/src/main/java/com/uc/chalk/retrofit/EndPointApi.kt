@@ -71,6 +71,11 @@ interface EndPointApi {
         @Query("contact_id") contact_id: String,
     ): Response<Contact>
 
+    @DELETE("/chats")
+    suspend fun deleteChats(
+        @Query("contact_id") contact_id: String,
+    ): Response<Chat>
+
 //    @GET("/fetchcontactbyuserid")
 //    suspend fun getContacts(
 //        @Query("user_id") user_id: String

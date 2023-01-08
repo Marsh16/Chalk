@@ -252,6 +252,9 @@ fun ContactCard(contact: Contact,mainViewModel: MainViewModel) {
                         onClick = {
                             openDialog.value = false
                             mainViewModel.deleteContact(Const.contact_id)
+                            mainViewModel.deleteChat(Const.contact_id)
+                            Const.contacts.clear()
+                            Const.chats.clear()
                         }) {
                         Text("Yes")
                     }

@@ -116,6 +116,21 @@ class MainViewModel @Inject constructor(private val repository: MainRepository):
         }
     }
 
+    fun deleteChat(contact_id: String) = viewModelScope.launch {
+        repository.deleteChat(contact_id).let { response ->
+//            Log.d("Test", response.body().toString())
+
+            if (response.isSuccessful) {
+
+                Log.e("message post", response.toString())
+
+
+            } else {
+                Log.e("Register failed", response.toString())
+            }
+        }
+    }
+
     fun postContact(name: String,phone_number: String,profilepic: String,username: String ) = viewModelScope.launch {
         repository.postContact(name,phone_number,profilepic,username).let { response ->
 //            Log.d("Test", response.body().toString())
