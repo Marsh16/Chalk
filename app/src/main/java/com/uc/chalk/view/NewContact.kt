@@ -147,8 +147,8 @@ class NewContact() : ComponentActivity() {
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(0.dp, 16.dp),
-                                    label = { Text(text = "Username") },
-                                    placeholder = { Text(text = "Enter your username") },
+                                    label = { Text(text = "Phone Number") },
+                                    placeholder = { Text(text = "Enter your Phone Number") },
                                     keyboardOptions = KeyboardOptions(
                                         keyboardType = KeyboardType.Text,
                                         imeAction = ImeAction.Next

@@ -267,26 +267,32 @@ fun getContact(user_id: String) = viewModelScope.launch {
 
             //val list: ArrayList<Contact> = ArrayList()
 
-            val array: JsonArray=  response.body()!!.getAsJsonArray("data")
-            Log.e("data", array.toString())
-            for (jsonObj in array){
 
-                val id =  jsonObj.asJsonObject["contact_id"].toString()
-                Const.contact_id=id.toString()
-                val name =  jsonObj.asJsonObject["name"].toString()
-                val phone_number =  jsonObj.asJsonObject["phone_number"].toString()
-                val profilepic =  jsonObj.asJsonObject["profilepic"].toString()
-                val user_id =  jsonObj.asJsonObject["user_id"].toString()
-                Log.e("Test1", name)
-                val re = "[^A-Za-z0-9 ]".toRegex()
+         //   Log.e("data", array.toString())
+            if (response.body()!!.asJsonObject["data"].toString()=="null"){
+                Log.e("data","null")
+            }else{
+                val array: JsonArray=  response.body()!!.getAsJsonArray("data")
+                for (jsonObj in array){
 
-                val add=Contact(re.replace(id, "").toInt(),re.replace(name, ""),re.replace(phone_number, ""),re.replace(profilepic, ""),re.replace(user_id, ""))
+                    val id =  jsonObj.asJsonObject["contact_id"].toString()
+                    Const.contact_id=id.toString()
+                    val name =  jsonObj.asJsonObject["name"].toString()
+                    val phone_number =  jsonObj.asJsonObject["phone_number"].toString()
+                    val profilepic =  jsonObj.asJsonObject["profilepic"].toString()
+                    val user_id =  jsonObj.asJsonObject["user_id"].toString()
+                    Log.e("Test1", name)
+                    val re = "[^A-Za-z0-9 ]".toRegex()
+
+                    val add=Contact(re.replace(id, "").toInt(),re.replace(name, ""),re.replace(phone_number, ""),re.replace(profilepic, ""),re.replace(user_id, ""))
 //              val add=Contact(id.asInt,name,phone_number,profilepic,user_id)
-                if ( Const.contacts.size>1){
-                    Const.contacts.clear()
+                    if ( Const.contacts.size>1){
+                        Const.contacts.clear()
+                    }
+                    Const.contacts.add(add)
                 }
-              Const.contacts.add(add)
             }
+
 //            array as ArrayList<Contact>
 
             _contact.postValue(
@@ -330,28 +336,37 @@ fun getContact(user_id: String) = viewModelScope.launch {
 //            val array: JsonArray =_mahasiswa.value!!.getAsJsonArray("data")
 
                 //val list: ArrayList<Contact> = ArrayList()
-if (!response.body()!!.getAsJsonArray("data").isJsonNull){
-
-    val array: JsonArray=  response.body()!!.getAsJsonArray("data")
-    Log.e("data", array.toString())
-    for (jsonObj in array){
 
 
-        val id =  jsonObj.asJsonObject["messages_id"].toString()
-        val messages =  jsonObj.asJsonObject["messages"].toString()
-        val contact_id =  jsonObj.asJsonObject["contact_id"].toString()
+
+    ///Log.e("data", array.toString())
+    if (response.body()!!.asJsonObject["data"].toString()=="null"){
+        Log.e("data","null")
+    }else{
+
+        val array: JsonArray=  response.body()!!.getAsJsonArray("data")
+    for (jsonObj in array) {
+
+
+        val id = jsonObj.asJsonObject["messages_id"].toString()
+        val messages = jsonObj.asJsonObject["messages"].toString()
+        val contact_id = jsonObj.asJsonObject["contact_id"].toString()
         val re = "[^A-Za-z0-9 ]".toRegex()
 
-        val add=Message(re.replace(id, "").toInt(),re.replace(messages, ""),re.replace(contact_id, ""))
+        val add = Message(
+            re.replace(id, "").toInt(),
+            re.replace(messages, ""),
+            re.replace(contact_id, "")
+        )
 //        if ( Const.messages.size>1){
 //            Const.messages.clear()
 //        }
         Log.e("Test1", messages)
-            Const.messages.add(add)
-
+        Const.messages.add(add)
 
     }
-}
+    }
+
 //                val array: JsonArray=  response.body()!!.getAsJsonArray("data")
 //                Log.e("data", array.toString())
 //                for (jsonObj in array){
@@ -403,29 +418,36 @@ if (!response.body()!!.getAsJsonArray("data").isJsonNull){
 
             if (response.isSuccessful) {
 //
-                val array: JsonArray=  response.body()!!.getAsJsonArray("data")
-                Log.e("data", array.toString())
 //
-                for (jsonObj in array){
 
-                    val id =  jsonObj.asJsonObject["id"].toString()
-                    val phone_number =  jsonObj.asJsonObject["phone_number"].toString()
-                    val name =  jsonObj.asJsonObject["name"].toString()
-                    val profilepic =  jsonObj.asJsonObject["profilepic"].toString()
-                    val user_id =  jsonObj.asJsonObject["user_id"].toString()
-                    val contact_id =  jsonObj.asJsonObject["contact_id"].toString()
-                    Log.e("Test1", name)
-                    val re = "[^A-Za-z0-9 ]".toRegex()
+                if (response.body()!!.asJsonObject["data"].toString()=="null"){
+                    Log.e("data","null")
+                }else{
 
-                    val add=Chat(re.replace(id, "").toInt(),re.replace(name, ""),re.replace(phone_number, ""),re.replace(profilepic, ""),re.replace(user_id, ""),re.replace(contact_id, ""))
+
+                        val array: JsonArray=  response.body()!!.getAsJsonArray("data")
+                        for (jsonObj in array){
+
+                            val id =  jsonObj.asJsonObject["id"].toString()
+                            val phone_number =  jsonObj.asJsonObject["phone_number"].toString()
+                            val name =  jsonObj.asJsonObject["name"].toString()
+                            val profilepic =  jsonObj.asJsonObject["profilepic"].toString()
+                            val user_id =  jsonObj.asJsonObject["user_id"].toString()
+                            val contact_id =  jsonObj.asJsonObject["contact_id"].toString()
+                            Log.e("Test1", name)
+                            val re = "[^A-Za-z0-9 ]".toRegex()
+
+                            val add=Chat(re.replace(id, "").toInt(),re.replace(name, ""),re.replace(phone_number, ""),re.replace(profilepic, ""),re.replace(user_id, ""),re.replace(contact_id, ""))
 //                    val add=Data(id.asInt,name,phone_number,profilepic,user_id,contact_id)
-                    if ( Const.chats.size>1) {
+                            if ( Const.chats.size>1) {
 //                    //  Const.chats.clear()
-                        Const.chats.clear()
-                    }
-                        Const.chats.add(add)
+                                Const.chats.clear()
+                            }
+                            Const.chats.add(add)
 
 //                }
+//                        }
+
 
                 }
 //            array as ArrayList<Contact>
@@ -450,11 +472,15 @@ if (!response.body()!!.getAsJsonArray("data").isJsonNull){
 
                 Log.e("fail",  response.body().toString())
 
-            } else {
+            }
+        }else{
 
-                Log.e("fail","failed")
+
+                    Log.e("fail","failed")
+
 
             }
-        }
+    }
+
     }
 }
